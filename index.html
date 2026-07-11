@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mercadinho 🛒</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="screen active" id="s-welcome">
+    <div class="welcome-card">
+      <div class="welcome-coins-indicator">⭐ <span id="welcome-coins">0</span> Moedas</div>
+      <span class="tito-face">🐱</span>
+      <h1>Olá! Eu sou o <em>Tito!</em></h1>
+      <p>Sou o caixeiro do mercadinho e preciso de ajuda para atender os clientes! 🛒<br>Você topa trabalhar comigo?</p>
+      <div class="welcome-buttons">
+        <button class="btn-start" onclick="startGame()">Bora Jogar! 🎉</button>
+        <button class="btn-shop-open" onclick="openShop()">🏪 Abrir Lojinha</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="s-shop">
+    <div class="shop-container">
+      <div class="shop-header">
+        <h2>🏪 Lojinha do Tito</h2>
+        <div class="shop-coins-badge">⭐ <span id="shop-coins">0</span> Moedas</div>
+      </div>
+      <p class="shop-subtitle">💡 Desbloqueie novos itens usando suas moedas para que eles apareçam nos pedidos dos clientes!</p>
+      
+      <div class="shop-grid" id="shop-grid"></div>
+      
+      <button class="btn-shop-back" onclick="showScreen('s-welcome')">⬅️ Voltar ao Menu</button>
+    </div>
+  </div>
+
+  <div class="screen" id="s-game">
+    <div class="game-header">
+      <div class="game-logo">🐱 Mercadinho do Tito</div>
+      <div class="client-pill" id="client-pill" style="display:none">
+        <span class="client-emoji" id="client-emoji"></span>
+        <span id="client-name-display">Cliente</span>
+      </div>
+      <div class="header-spacer"></div>
+      <button class="btn-table" onclick="showTable()">📋 Lista de Preços</button>
+    </div>
+
+    <div class="game-body">
+      <div class="chat-panel">
+        <div class="chat-title">💬 Atendimento</div>
+        <div class="chat-window" id="chat-window"></div>
+        
+        <div class="chat-input-row" id="input-row">
+          <input class="chat-input" id="chat-input" type="text" placeholder="Pergunte o nome ou o pedido do cliente..." autocomplete="off" onkeydown="if(event.key==='Enter') sendAnswer()" />
+          <button class="btn-send" id="btn-send" onclick="sendAnswer()">➤</button>
+        </div>
+
+        <div id="math-panel" style="display:none;"></div>
+      </div>
+
+      <div class="cart-panel">
+        <div class="cart-card">
+          <div class="cart-card-header">
+            <h3>🛒 Carrinho do Cliente</h3>
+            <span class="cart-badge" id="cart-badge">0</span>
+          </div>
+          <div class="cart-add-area" id="cart-add-area">
+            <div class="cart-selrow">
+              <select class="cart-sel" id="cart-sel">
+                <option value="">Produto...</option>
+              </select>
+              <input class="cart-price-inp" id="cart-price" type="number" placeholder="R$ preço" step="0.01" min="0" />
+            </div>
+            <button class="btn-cart-add" onclick="addCartItem()">+ Adicionar</button>
+          </div>
+          <div class="cart-items-list" id="cart-items-list">
+            <div class="cart-empty"><span>🛒</span>Nenhum produto ainda</div>
+          </div>
+          <div class="cart-total-bar">
+            <span class="ct-label">Total</span>
+            <span class="ct-amount" id="cart-total">R$ 0,00</span>
+          </div>
+          <button class="btn-fechar" id="btn-fechar" onclick="confirmCart()">✅ Fechar Carrinho</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="s-table">
+    <div class="table-container">
+      <div class="table-topbar">
+        <button class="btn-back" onclick="backToGame()">⬅️ Voltar ao Atendimento</button>
+        <h2>📋 Lista de Preços Fixos</h2>
+      </div>
+      <div class="table-hint">💡 Veja os preços corretos organizados como uma tabela completa.</div>
+      
+      <div class="price-categories-grid" id="price-cats-container"></div>
+    </div>
+  </div>
+
+  <div class="screen" id="s-score">
+    <div class="score-card">
+      <span class="score-mascot" id="sc-mascot">🐱</span>
+      <h2>Atendimento Concluído!</h2>
+      <div class="stars-row">
+        <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+      </div>
+      <div class="score-grade" id="sc-grade">10,0</div>
+      <div id="earned-coins" style="font-family:'Fredoka One', cursive; font-size:20px; color:var(--mint-dk); margin: 10px 0;">Ganhou: +0 Moedas!</div>
+      <p class="score-msg" id="sc-msg"></p>
+      
+      <div class="score-breakdown" id="sc-breakdown"></div>
+      <button class="btn-again" onclick="resetToMenu()">🔄 Voltar ao Menu Inicial</button>
+    </div>
+  </div>
+
+  <div class="confetti-wrap" id="confetti-wrap"></div>
+
+  <span class="secret-dev-btn" onclick="devManageCoins()">⚙️</span>
+
+  <script src="app.js"></script>
+</body>
+</html>
